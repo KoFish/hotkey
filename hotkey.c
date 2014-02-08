@@ -1,10 +1,10 @@
 #include <X11/Xlib.h>
 #include <X11/keysym.h>
 #include <X11/Xutil.h>
-#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+
 
 #define len(X) (sizeof X / sizeof X[0])
 
@@ -14,11 +14,7 @@ typedef struct {
 	KeySym key;
 } Key;
 
-static const Key hotkeys[] = {
-	//"Command				 MOD 											Key
-	{ "svte &", 				 Mod1Mask, XK_g },
-	{ "svte -e mocp &", ShiftMask|ControlMask, XK_y }
-};
+#include "keys.h"
 
 int main() {
 	Display*    dpy     = XOpenDisplay(0);
@@ -30,7 +26,7 @@ int main() {
 	}
 
 	XSelectInput(dpy, root, KeyPressMask );
-	while(true)	{
+	while(1)	{
 		XEvent ev;
 		XNextEvent(dpy, &ev);
 
